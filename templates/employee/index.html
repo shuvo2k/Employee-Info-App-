@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8">
+    	<title>To Do List</title>
+
+    	{% load static %}
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body >
+
+        <div class="container-fluid wrapper" ng-app="employeeApp">
+        <div class="row" ng-controller="employeeController">
+
+      
+            <div class="col-md-6">
+                <h1 class="title">Employee History</h1>
+                <form class="box" ng-submit="addEmployee()">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="First name" ng-model="fname">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Last name" ng-model="lname">
+                        </div>
+                        <input type="text" class="form-control" placeholder="Postion" ng-model="position">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Sallery" ng-model="sallery">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Brance" ng-model="brance">
+                        </div>
+                    </div>
+                    <div class="buttons center-block">
+                        <button class="btn btn-info"><i class="fas fa-save"> </i> Save 
+                        </button>
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped">
+                        
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Sallery</th>
+                            <th>Branch</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="e in employees">
+                            <td ng-bind="e.fname + ' ' +e.lname"></td>
+                            <td ng-bind="e.position"></td>
+                            <td ng-bind="e.sallery"></td>
+                            <td ng-bind="e.brance"></td>
+                            <td><a href="#"><i class="far fa-edit"></i></a> | <a href="#" ng-click="removeEmployee(e)"><i class="far fa-trash-alt" style="color: red;"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+<!--  -->
+     
+<!--  -->
+        </div>
+    </div>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+    </body>
+</html>
