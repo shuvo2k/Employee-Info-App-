@@ -1,78 +1,132 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    	<meta charset="utf-8">
-    	<title>To Do List</title>
 
-    	{% load static %}
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-        <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    </head>
-    <body >
+<head>
+    <meta charset="utf-8">
+    <title>To Do List</title>
 
-        <div class="container-fluid wrapper" ng-app="employeeApp">
-        <div class="row" ng-controller="employeeController">
+    {% load static %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-      
-            <div class="col-md-6">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+</head>
+
+<body ng-app="toDo" ng-controller="toDoController">
+    <!-- form -->
+    <div class="container-fluid wrapper">
+        <div class="row">
+
+            <div class="col-md-5">
                 <h1 class="title">Employee History</h1>
-                <form class="box" ng-submit="addEmployee()">
-                    <div class="row">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="First name" ng-model="fname">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Last name" ng-model="lname">
-                        </div>
-                        <input type="text" class="form-control" placeholder="Postion" ng-model="position">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Sallery" ng-model="sallery">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Brance" ng-model="brance">
-                        </div>
-                    </div>
+                <form class="box" ng-submit="todoAdd()">
+
+                    <input type="text" class="form-control" placeholder="First name" ng-model="fname">
+
+                    <input type="text" class="form-control" placeholder="Last name" ng-model="lname">
+
+                    <input type="text" class="form-control" placeholder="Position" ng-model="position">
+
+                    <input type="text" class="form-control" placeholder="Sallery" ng-model="sallery">
+
+                    <input type="text" class="form-control" placeholder="Office" ng-model="office">
+
+
                     <div class="buttons center-block">
-                        <button class="btn btn-info"><i class="fas fa-save"> </i> Save 
+                        <button class="btn btn-info" type="submit" ng-click="saveData()"><i class="fas fa-save"> </i> Save 
                         </button>
-                        
+
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
+
+            <!-- table -->
+
+            <div class="col-md-7">
                 <table class="table table-striped">
-                        
+
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Position</th>
                             <th>Sallery</th>
-                            <th>Branch</th>
+                            <th>Office</th>
                             <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="e in employees">
-                            <td ng-bind="e.fname + ' ' +e.lname"></td>
+                        <tr ng-repeat="e in todoList">
+                            <td ng-bind="e.fname + ' ' + e.lname"></td>
+
                             <td ng-bind="e.position"></td>
                             <td ng-bind="e.sallery"></td>
-                            <td ng-bind="e.brance"></td>
-                            <td><a href="#"><i class="far fa-edit"></i></a> | <a href="#" ng-click="removeEmployee(e)"><i class="far fa-trash-alt" style="color: red;"></i></a></td>
+                            <td ng-bind="e.office"></td>
+                            <td><a href="#" data-toggle="modal" data-target="#myModal" ng-click="editData(e)"><i class="far fa-edit"></i></a> | <a href="#" ng-click="removeData(e)"><i class="far fa-trash-alt" style="color: red;"></i></a></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
 
-<!--  -->
-     
-<!--  -->
+            </div>
+            <!-- Modal -->
+            <div class="container">
+
+
+
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h1>Update Employee</h1>
+                            </div>
+                            <div class="modal-body modal-form">
+                                <form ng-submit="updateTable()">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" ng-model="efname" placeholder="first name">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" ng-model="elname" placeholder="last name">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" ng-model="eposition" placeholder="position">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" ng-model="esallery" placeholder="sallery">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" ng-model="eoffice" placeholder="office">
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateData()"><i class="fas fa-save"></i>  Save Change</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- modal end -->
         </div>
     </div>
 
 
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-        <script src="{% static 'js/app.js' %}"></script>
-    </body>
+
+    <script src="{% static 'js/app.js' %}"></script>
+</body>
+
 </html>

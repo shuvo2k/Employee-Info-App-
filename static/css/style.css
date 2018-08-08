@@ -1,13 +1,14 @@
 body {
-	
+
     font-family: 'Ubuntu', sans-serif;
 }
 
 .container-fluid.wrapper {
     margin-top: 25px;
 }
+
 .box {
-    
+
     padding: 5px 30px;
     background: #dadada;
 }
@@ -18,30 +19,65 @@ h1.title {
     background: #49157d;
     color: white;
     text-align: center;
-    padding: 11px 0px;
-    margin-bottom: 0px;
+    padding: 12px 0px 8px 0px;
+    margin: 0px 0px;
 }
+
 .box div.col {
     padding: 14px 3px 12px 1px;
+}
+
+.box input {
+    margin: 10px 0px;
 }
 
 .buttons.center-block {
     text-align: center;
 }
+
 button.btn.btn-info i {
     margin-right: 5px;
 }
+
 button.btn.btn-info {
     width: 120px;
     margin: 1px 2px 16px 2px;
 }
+
 thead {
     background: #49157d;
     color: white;
-    
+
 }
+
 table td {
     width: 25%;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.modal-form,
+.modal-footer {
+    background: #dadada;
+}
+
+.modal-form div {
+    padding: 6px 15px;
+}
+
+.modal-header {
+    background: #49157d;
+
+
+    padding: 4px 0px;
+
+}
+
+.modal-header h1 {
+
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+
+    font-weight: bold;
 }
