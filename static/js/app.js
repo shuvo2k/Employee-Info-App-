@@ -1,7 +1,7 @@
 var app = angular.module('toDo', []);
 app.controller('toDoController', function ($scope, $http) {
     // $scope.todoList = [{todoText: 'Finish this app', done: false}];
-    $http.get('/todo/api/').then(function (response) {
+    $http.get('/employee/api/').then(function (response) {
         $scope.todoList = [];
         for (var i = 0; i < response.data.length; i++) {
 
@@ -26,7 +26,7 @@ app.controller('toDoController', function ($scope, $http) {
             sallery: $scope.sallery,
             office: $scope.office
         };
-        $http.put('/todo/api/', data)
+        $http.put('/employee/api/', data)
 
     };
 
@@ -74,7 +74,7 @@ app.controller('toDoController', function ($scope, $http) {
             }
         }
 
-        var editItem = 'todo/api/' + $scope.eid + '/';
+        var editItem = '/employee/api/' + $scope.eid + '/';
         $http.put(editItem, newData);
     };
 
@@ -93,7 +93,7 @@ app.controller('toDoController', function ($scope, $http) {
     $scope.removeData = function (e) {
         var remove = $scope.todoList.indexOf(e);
 
-        var deleteItem = '/todo/api/' + $scope.todoList[remove].id + '/';
+        var deleteItem = '/employee/api/' + $scope.todoList[remove].id + '/';
         $scope.todoList.splice(remove, 1);
         $http.delete(deleteItem);
     };
